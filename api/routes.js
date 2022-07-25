@@ -7,5 +7,6 @@ const TypeExpenseController = require('./controllers/TypeExpenseController');
 const routes = express.Router();
 
 routes.post('/typeexpense/:user_id', TypeExpenseController.create);
+routes.get('/typeexpense/:user_id', TypeExpenseController.findAllByUser);
 
 module.exports = routes;
