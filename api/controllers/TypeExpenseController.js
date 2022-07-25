@@ -1,6 +1,3 @@
-/* const TypeExpense = require('../models/typeexpense');
-const User = require('../models/User'); */
-
 const models = require('../models')
 
 module.exports = {

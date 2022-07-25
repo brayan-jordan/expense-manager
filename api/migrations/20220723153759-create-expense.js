@@ -17,7 +17,7 @@ module.exports = {
       },
       type_expense_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: { model: 'typeexpenses', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
