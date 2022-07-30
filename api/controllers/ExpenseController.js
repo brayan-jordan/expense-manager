@@ -11,7 +11,17 @@ module.exports = {
             return res.status(400).json({ error: 'User not found' });
         }
 
-        // Fazer validacao de type expense
+        if (!type_expense_id) {
+            type_expense_id = 1
+        }
+
+        if (type_expense_id != 1) {
+            const typeExpense = await models.TypeExpense.findByPk(type_expense_id);
+
+            if (!typeExpense) {
+                return res.status(400).json({ error: 'TypeExpense not found' });
+            }
+        }
 
         const expense = await models.Expense.create({
             user_id,
