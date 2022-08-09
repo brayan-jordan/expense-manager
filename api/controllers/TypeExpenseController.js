@@ -5,10 +5,8 @@ module.exports = {
         const { user_id } = req.params;
         var { name, limit } = req.body;
 
-        const user = await models.User.findByPk(user_id);
-
-        if (!user) {
-            return res.status(400).json({ error: 'User not found' });
+        if (!user_id) {
+            user_id = 1
         }
 
         const typeexpense = await models.TypeExpense.create({
@@ -23,10 +21,8 @@ module.exports = {
     async findAllByUser(req, res) {
         const { user_id } = req.params;
 
-        const user = await models.User.findByPk(user_id);
-
-        if (!user) {
-            return res.status(400).json({ error: 'User not found' });
+        if (!user_id) {
+            user_id = 1
         }
 
         const typeexpenses = await models.TypeExpense.findAll({

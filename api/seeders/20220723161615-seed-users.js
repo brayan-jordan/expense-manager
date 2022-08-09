@@ -4,7 +4,6 @@ module.exports = {
       {
         name: 'Default User',
         email: 'default@default.com',
-        password: '1234',
         createdAt: new Date(),
         updatedAt: new Date()
       }
