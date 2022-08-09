@@ -35,7 +35,7 @@ module.exports = {
         return res.json(expense);
     },
 
-    async findRecentExpenses(req, res) {
+    async findExpensesByYear(req, res) {
         const { user_id } = req.params;
 
         const user = await models.User.findByPk(user_id);
@@ -44,25 +44,27 @@ module.exports = {
             return res.status(400).json({ error: 'User not found' });
         }
 
-        const recentExpenses = await models.Expense.findAll({
+        var recentExpenses = await models.Expense.findAll({
             where: {
                 user_id: user_id
             }
         });
 
-        var separateExpenses = [];
-        var dateToFilter = new Date();
-        dateToFilter.setFullYear(dateToFilter.getFullYear() - 1)
-        console.log(dateToFilter);
+        var { yearToFilter } = req.body
 
-        for (let i = 0; i < 23; ++i) {
-            dateToFilter.setMonth(dateToFilter.getMonth() + 1);
+        if (!yearToFilter) {
+            yearToFilter = new Date().getFullYear()
+        }
+
+        recentExpenses = recentExpenses.filter(index => index.date.getFullYear() == yearToFilter)
+
+        var separateExpenses = [];
+
+        for (let i = 0; i < 12; ++i) {
             separateExpenses.push({
-                baseMonth: dateToFilter.getMonth() + 1,
-                baseYear: dateToFilter.getFullYear(),
+                baseMonth: i + 1,
                 expenses: recentExpenses.filter(index =>
-                    index.date.getMonth() == dateToFilter.getMonth() &&
-                    index.date.getFullYear() == dateToFilter.getFullYear()
+                    index.date.getMonth() == i
                 )
             })
         }
