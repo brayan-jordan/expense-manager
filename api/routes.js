@@ -12,5 +12,6 @@ routes.get('/typeexpense/:user_id', TypeExpenseController.findAllByUser);
 
 routes.post('/expense/:user_id', ExpenseController.create);
 routes.get('/expense/:user_id', ExpenseController.findExpensesByYear);
+routes.put('/expense/:user_id/:expense_id', ExpenseController.update);
 
 module.exports = routes;

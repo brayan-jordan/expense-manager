@@ -25,6 +25,38 @@ module.exports = {
         return res.json(expense);
     },
 
+    async update(req, res) {
+        const infosToEdit = req.body
+        var { expense_id, user_id } = req.params
+
+        if (!user_id) {
+            user_id = 1
+        }
+
+        try {
+            await models.Expense.update(
+                infosToEdit,
+                {
+                    where: {
+                        id: expense_id,
+                        user_id: user_id
+                    }
+                }
+            )
+
+            const expense = await models.Expense.findOne({
+                where: {
+                    id: expense_id,
+                    user_id: user_id
+                }
+            })
+
+            return res.status(200).json(expense)
+        } catch (err) {
+            return res.status(500).json({ err: err.message })
+        }
+    },
+
     async findExpensesByYear(req, res) {
         var { user_id } = req.params;
 
